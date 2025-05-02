@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+// import './mouvement.js';
 import { initializeParticles, handleMouseInteraction } from "./mouvement.js";
 
 import "./index.css";
-// import './mouvement.js';
+import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
+import ContactForm from "./ContactForm.jsx";
 
 function App() {
   const baseUrl = "http://localhost:1337";
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectValue, setSelectValue] = useState("0");
-  const [copyPprojects, setCopyProjects] = useState([]);
+  const [copyProjects, setCopyProjects] = useState([]);
 
   async function getProjects() {
     try {
@@ -42,7 +45,7 @@ function App() {
     handleMouseInteraction();
   }, []);
   useEffect(() => {
-    var data = [...copyPprojects];
+    var data = [...copyProjects];
     if (selectValue == "0") {
       setProjects(data);
     } else {
@@ -56,23 +59,8 @@ function App() {
   return (
     <div>
       {/* HEADER */}
-      <header className="header">
-        <nav>
-          <h1>Mon Portfolio</h1>
-          <ul className="nav-links">
-            <li>
-              <a href="#about">À propos</a>
-            </li>
-            <li>
-              <a href="#projects">Projets</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
 
+      <Header />
       {/* Contenu principal */}
       <main>
         <div id="particles-container" className="particles-container"></div>
@@ -101,12 +89,12 @@ function App() {
               Bienvenue sur mon portfolio ! Je suis développeur web passionné.
             </p>
             <p>
-              <strong>Téléphone : </strong>0693 20 85 32
+              <strong>Téléphone : </strong>0693 00 00 00
             </p>
             <p>
               <strong>Email : </strong>
-              <a href="mailto:marilaure-974@hotmail.fr">
-                marielaure-974@hotmail.fr
+              <a href="mailto:moi@hotmail.fr">
+                moi@hotmail.fr
               </a>
             </p>
             <button>
@@ -197,54 +185,12 @@ function App() {
         {/* SECTION CONTACT */}
         <section id="contact" className="section contact">
           <h2>Me Contacter</h2>
-          <form className="contact-form">
-            <label htmlFor="name">Nom :</label>
-            <input type="text" id="name" name="name" required />
-
-            <label htmlFor="email">Email :</label>
-            <input type="email" id="email" name="email" required />
-
-            <label htmlFor="message">Message :</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="submit">Envoyer</button>
-          </form>
+          <ContactForm />
         </section>
       </main>
 
       {/* FOOTER */}
-      <footer className="footer">
-        <p>© 2025 Mon Portfolio. Tous droits réservés.</p>
-        <ul className="social-links">
-          <li>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-          </li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 }
