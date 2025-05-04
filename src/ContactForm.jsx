@@ -4,7 +4,12 @@ import emailjs from "emailjs-com";
 import.meta.env.VITE_SERVICE_ID;
 import.meta.env.VITE_TEMPLATE_ID;
 import.meta.env.VITE_USER_ID;
-
+const scrollToSection = (id) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
 const ContactForm = () => {
   const {
     register,
@@ -84,6 +89,11 @@ const ContactForm = () => {
       {errors.message && <span>Ce champ est obligatoire</span>}
 
       <button type="submit">Envoyer</button>
+      {/* Boutons de retour vers les autres sections */}
+  <div className="navigation-buttons">
+    <button onClick={() => scrollToSection("about")}>Retour à "À propos"</button>
+    <button onClick={() => scrollToSection("projects")}>Retour "aux Projets"</button>
+  </div>
     </form>
   );
 };

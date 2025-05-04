@@ -1,12 +1,26 @@
-# React + Vite
+# Portfolio App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Description
+Portfolio App is a **modern and responsive web application** designed to showcase personal projects, skills, and contact information.  
+It includes an **interactive UI, dynamic animations, and data management using Strapi**.
 
-Currently, two official plugins are available:
+## 🏗️ Technical Architecture
+The project follows a **client-server architecture**:
+- **Frontend:** React (with Vite for development)
+- **Backend:** Strapi (Node.js-based CMS)
+- **Database:** SQLite / PostgreSQL (for storing content)
+- **Deployment:** Netlify (Frontend) + Heroku / DigitalOcean (Backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technologies Used
+- **Frontend:** React, React Router, Vite, CSS modules
+- **Backend:** Strapi, Node.js, REST API
+- **Database:** SQLite / PostgreSQL
+- **Additional Tools:** JSDoc (Documentation), ESLint (Code Quality), Better-docs (API Documentation)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
+Follow these steps to set up the project locally:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### **1️⃣ Clone the repository**
+```bash
+git clone https://github.com/your-username/portfolio-app.git
+cd portfolio-app

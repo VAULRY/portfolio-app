@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useRef } from "react";
+// import './mouvement.js';
+import { initializeParticles, handleMouseInteraction } from "./mouvement.js";
+import "./index.css";
+import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
+import ContactForm from "./ContactForm.jsx";
+import ProjectCard from "./ProjectCard"; // Import du composant
+
+/**
+ * Composant principal de l'application.
+ *
+ * @component
+ * @returns {JSX.Element} Structure complète du portfolio.
+ */
+
+function App() {
+  const baseUrl = "http://localhost:1337";
+  const [projects, setProjects] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectValue, setSelectValue] = useState("0");
+  const [copyProjects, setCopyProjects] = useState([]);
+
+  // Définition des références
+  const aboutRef = useRef(null);
+  const projectsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  /**
+   * Récupère la liste des projets depuis l'API Strapi.
+   *
+   * @async
+   * @function getProjects
+   * @returns {Promise&lt;void>} Met à jour l'état `projects` avec les données récupérées.
+   */
+
+  // Fonction pour récupérer les projets depuis Strapi
+
+  async function getProjects() {
+    try {
+      const request = await fetch(
+        `${baseUrl}/api/projects?populate=covers&amp;populate=technologies.icon`
+      );
+      const response = await request.json();
+      console.log("Données API récupérées :", response.data);
+      setProjects(response.data);
+      setCopyProjects(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des projets :", error);
+    }
+  }
+  /**
+   * Récupère la liste des technologies depuis l'API Strapi.
+   *
+   * @async
+   * @function getTechnologies
+   * @returns {Promise&lt;void>} Met à jour l'état `categories` avec les technologies récupérées.
+   */
+
+  // Fonction pour récupérer les technologies utilisées
+
+  async function getTechnologies() {
+    try {
+      const request = await fetch(`${baseUrl}/api/technologies?populate=icon`);
+      const response = await request.json();
+      console.log("Données API récupérées :", response.data);
+      setCategories(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des projets :", error);
+    }
+  }
+  /**
+   * Initialise les projets, technologies et animations au chargement de la page.
+   *
+   * @useEffect
+   */
+
+  useEffect(() => {
+    getProjects();
+    getTechnologies();
+    initializeParticles();
+    handleMouseInteraction();
+  }, []);
+  /**
+   * Met à jour la liste des projets en fonction de la technologie sélectionnée.
+   *
+   * @useEffect
+   * @param {string} selectValue - ID de la technologie sélectionnée.
+   */
+
+  useEffect(() => {
+    let data = [...copyProjects];
+
+    // Assure-toi que "Tout" restaure la liste complète
+    if (selectValue === "0" || selectValue === "" || !selectValue) {
+      setProjects(copyProjects);
+    } else {
+      data = data.filter((project) =>
+        project.technologies.some((c) => c.id == selectValue)
+      );
+      setProjects(data);
+    }
+  }, [copyProjects, selectValue]);
+
+  return (
+    &lt;div>
+      {/* HEADER */}
+      &lt;Header
+        aboutRef={aboutRef}
+        projectsRef={projectsRef}
+        contactRef={contactRef}
+      />
+ {/* animation */}
+ &lt;div id="particles-container" className="particles-container">&lt;/div>
+
+&lt;div className="gradient-background">
+  &lt;div className="gradient-sphere sphere-1">&lt;/div>
+  &lt;div className="gradient-sphere sphere-2">&lt;/div>
+  &lt;div className="gradient-sphere sphere-3">&lt;/div>
+  &lt;div className="glow">&lt;/div>
+  &lt;div className="grid-overlay">&lt;/div>
+  &lt;div className="noise-overlay">&lt;/div>
+  {/* &lt;div class="particles-container" id="particles-container">&lt;/div> */}
+&lt;/div>
+      {/* Contenu principal */}
+      &lt;main>
+        {/* SECTION À PROPOS */}
+        &lt;section id="general" className="section general">
+         
+          
+          &lt;img src="téléchargement.jpeg" alt="API1" />
+          &lt;section id="about" className="section about" ref={aboutRef}>
+            &lt;h2>À propos de moi&lt;/h2>
+            &lt;img
+              src="Marie Laure.jpg"
+              alt="Photo de profil"
+              className="profile-photo"
+            />
+            &lt;p>
+              Bienvenue sur mon portfolio ! Je suis développeur web passionné.
+            &lt;/p>
+            &lt;p>
+              &lt;strong>Téléphone : &lt;/strong>0693 00 00 00
+            &lt;/p>
+            &lt;p>
+              &lt;strong>Email : &lt;/strong>
+              &lt;a href="mailto:moi@hotmail.fr">moi@hotmail.fr&lt;/a>
+            &lt;/p>
+            &lt;button>
+              &lt;a href="chemin-vers-ton-CV.pdf" download>
+                Télécharger mon CV
+              &lt;/a>
+            &lt;/button>
+          &lt;/section>
+          &lt;img src="téléchargement (1).jpeg" alt="API2" />
+        &lt;/section>
+
+        {/* projet */}
+        &lt;section id="projects" className="section projects" ref={projectsRef}>
+          &lt;h2>Mes Projets&lt;/h2>
+          &lt;ProjectCard
+            project={{
+              id: 1,
+              title: "Mon projet",
+              description: "Description",
+              technologies: [{ id: 1, name: "React" }],
+            }}
+          />
+
+          &lt;p className="card-technologies">Technologies utilisées :&lt;/p>
+          &lt;div className="card-technologies-container">
+            &lt;button onClick={() => setSelectValue("")}>Tout&lt;/button>
+
+            {categories?.map((tech) => (
+              &lt;button
+                onClick={() => setSelectValue(tech.id)}
+                key={tech.id}
+                className="technology-item"
+              >
+                &lt;p>{tech.name || "Technologie indisponible"}&lt;/p>
+                &lt;img
+                  src={baseUrl + tech.icon?.url}
+                  alt={tech.name}
+                  className="technology-icon"
+                />
+              &lt;/button>
+            )) || &lt;p>Aucune technologie trouvée.&lt;/p>}
+          &lt;/div>
+
+          &lt;div className="container">
+            {!projects.length &amp;&amp; &lt;p>Aucun projet trouvé.&lt;/p>}
+            {projects.map((p) => (
+              &lt;div key={p.id} className="card">
+                &lt;div className="card-content">
+                  &lt;p className="card-title">
+                    {p.title || "Titre indisponible"}
+                  &lt;/p>
+                  &lt;img src={baseUrl + p.covers?.url || ""} alt={p.title} />
+                  &lt;p className="card-description">
+                    {p.description || "Description indisponible"}
+                  &lt;/p>
+                  &lt;a
+                    href={p.url || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Voir sur GitHub
+                  &lt;/a>
+                  {/* map technologie */}
+                  &lt;div className="card-technologies-container">
+                    &lt;p className="card-technologies">
+                      Technologies utilisées :
+                    &lt;/p>
+
+                    {p.technologies?.map((tech) => (
+                      &lt;div key={tech.id} className="technology-item">
+                        &lt;p>{tech.name || "Technologie indisponible"}&lt;/p>
+                        &lt;img
+                          src={baseUrl + tech.icon?.url || ""}
+                          alt={tech.name}
+                          className="technology-icon"
+                        />
+                      &lt;/div>
+                    )) || &lt;p>Aucune technologie trouvée.&lt;/p>}
+                  &lt;/div>
+                &lt;/div>
+              &lt;/div>
+            ))}
+          &lt;/div>
+        &lt;/section>
+
+        {/* SECTION CONTACT */}
+        &lt;section id="contact" className="section contact" ref={contactRef}>
+          &lt;h2>Me Contacter&lt;/h2>
+          &lt;ContactForm />
+        &lt;/section>
+      &lt;/main>
+
+      {/* FOOTER */}
+      &lt;Footer />
+    &lt;/div>
+  );
+}
+
+export default App;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="Header.html">Header</a></li><li><a href="ProjectCard.html">ProjectCard</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getProjects">getProjects</a></li><li><a href="global.html#getTechnologies">getTechnologies</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun May 04 2025 15:55:14 GMT+0400 (heure normale de Maurice)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

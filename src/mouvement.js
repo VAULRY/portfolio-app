@@ -11,6 +11,8 @@ export function initializeParticles() {
     }
 
     function createParticle() {
+        console.log("Nouvelle particule créée !");
+
         const particle = document.createElement('div');
         particle.className = 'particle';
 
@@ -45,6 +47,8 @@ export function initializeParticles() {
     }
 
     function animateParticle(particle) {
+        console.log("Animation lancée pour une particule !");
+
         // Obtenir la position initiale
         const pos = resetParticle(particle);
 
