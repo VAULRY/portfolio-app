@@ -7,6 +7,8 @@ import Footer from "./Footer.jsx";
 import ContactForm from "./ContactForm.jsx";
 import ProjectCard from "./ProjectCard"; // Import du composant
 
+
+
 /**
  * Composant principal de l'application.
  *
@@ -110,32 +112,31 @@ function App() {
         projectsRef={projectsRef}
         contactRef={contactRef}
       />
- {/* animation */}
- <div id="particles-container" className="particles-container"></div>
+      {/* animation */}
+      <div id="particles-container" className="particles-container"></div>
 
-<div className="gradient-background">
-  <div className="gradient-sphere sphere-1"></div>
-  <div className="gradient-sphere sphere-2"></div>
-  <div className="gradient-sphere sphere-3"></div>
-  <div className="glow"></div>
-  <div className="grid-overlay"></div>
-  <div className="noise-overlay"></div>
-  {/* <div class="particles-container" id="particles-container"></div> */}
-</div>
+      <div className="gradient-background">
+        <div className="gradient-sphere sphere-1"></div>
+        <div className="gradient-sphere sphere-2"></div>
+        <div className="gradient-sphere sphere-3"></div>
+        <div className="glow"></div>
+        <div className="grid-overlay"></div>
+        <div className="noise-overlay"></div>
+        {/* <div class="particles-container" id="particles-container"></div> */}
+      </div>
       {/* Contenu principal */}
       <main>
         {/* SECTION À PROPOS */}
         <section id="general" className="section general">
-         
-          
-          <img src="téléchargement.jpeg" alt="API1" />
+          <img src="./assets/apiun.jpeg" alt="API1" />
+
           <section id="about" className="section about" ref={aboutRef}>
             <h2>À propos de moi</h2>
-            <img
-              src="Marie Laure.jpg"
-              alt="Photo de profil"
-              className="profile-photo"
-            />
+           <img src="./assets/marielaure.jpg" alt="Profil" />
+
+         
+
+
             <p>
               Bienvenue sur mon portfolio ! Je suis développeur web passionné.
             </p>
@@ -152,7 +153,8 @@ function App() {
               </a>
             </button>
           </section>
-          <img src="téléchargement (1).jpeg" alt="API2" />
+          <img src="./assets/apideux.jpeg" alt="API2" />
+
         </section>
 
         {/* projet */}
